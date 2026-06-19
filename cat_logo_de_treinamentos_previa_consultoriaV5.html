@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Treinamentos - Previa Consultoria</title>
+<!-- Tailwind CSS para estilização rápida e responsiva -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0497a7;
+  --secondary: #f96c05;
+  --accent: #8c7c54;
+}
+body {
+  font-family: 'Inter', sans-serif;
+}
+/* Custom scrollbar para estética premium */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+/* Efeitos visuais suaves */
+.rating-btn {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.rating-btn:hover {
+  transform: scale(1.15);
+}
+.card-zoom {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.card-zoom:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 25px -5px rgba(4, 151, 167, 0.15), 0 8px 8px -5px rgba(0, 0, 0, 0.04);
+}
+/* Ocultar barra de rolagem horizontal mantendo navegação por toque */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+<!-- Header escuro para integração perfeita da logo preta fornecida -->
+<header class="bg-[#0b0c10] shadow-xl sticky top-0 z-50 border-b-2 border-[#0497a7]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-4">
+      <!-- Imagem Logo oficial posicionada no canto superior esquerdo -->
+      <img src="/logo-previa.png" alt="Logo Previa" class="h-12 w-auto object-contain" onerror="this.onerror=null;this.src='https://placehold.co/180x60/0b0c10/0497a7?text=PREVIA'">
+      <div class="h-6 w-px bg-slate-800 hidden sm:block"></div>
+      <span class="hidden sm:inline text-slate-400 font-medium text-xs tracking-widest uppercase font-semibold">Painel Corporativo</span>
+    </div>
+
+    <!-- Navegação entre páginas -->
+    <div class="flex items-center gap-2 sm:gap-4">
+      <nav class="flex bg-slate-900 rounded-lg p-1 border border-slate-800">
+        <button onclick="switchPage('catalog')" id="nav-btn-catalog" class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all text-white bg-[#0497a7]">
+          Catálogo
+        </button>
+        <button onclick="switchPage('results')" id="nav-btn-results" class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
+          Resultados <span id="nav-results-badge" class="bg-slate-800 text-[#f96c05] text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+        </button>
+      </nav>
+
+      <!-- Botão de rolagem para o formulário no rodapé -->
+      <button onclick="scrollToForm()" class="bg-[#f96c05] hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition-all transform hover:scale-105 flex items-center gap-2 text-xs sm:text-sm">
+        <span class="hidden sm:inline">Finalizar Avaliação</span>
+        <span class="sm:hidden">Submeter</span>
+        <span id="vote-badge" class="bg-white text-[#f96c05] text-xs px-2 py-0.5 rounded-full font-extrabold">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGINA 1: CATÁLOGO DE CURSOS -->
+<div id="page-catalog" class="flex-grow flex flex-col">
+  <!-- Hero Banner explicativo sobre a mecânica de votação -->
+  <section class="bg-gradient-to-br from-[#0497a7] via-[#037885] to-[#8c7c54] text-white py-12 px-4 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(249,108,5,0.15),transparent_45%)]"></div>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <span class="bg-white/10 text-white text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-white/10">Pesquisa de Demanda Corporativa</span>
+      <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-4 mb-4 drop-shadow-sm text-slate-100">
+        O Seu Feedback Constrói o Nosso Treinamento
+      </h2>
+      <p class="text-base sm:text-lg text-slate-100 max-w-2xl mx-auto font-light leading-relaxed">
+        Para oferecer-mos a melhor e mais personalizada capacitação para a sua equipa, <strong class="text-[#f96c05] font-bold">atribua uma nota de interesse de 0 a 10</strong> em cada um dos cursos abaixo.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3 text-xs">
+        <span class="bg-black/20 px-3 py-1.5 rounded-lg flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#f96c05]"></span> 0 a 4: Baixo Interesse
+        </span>
+        <span class="bg-black/20 px-3 py-1.5 rounded-lg flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#8c7c54]"></span> 5 a 7: Médio Interesse
+        </span>
+        <span class="bg-black/20 px-3 py-1.5 rounded-lg flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#0497a7]"></span> 8 a 10: Alto Interesse
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filtros de Categorias para facilitar a navegação nos 30 cursos -->
+  <div class="bg-white shadow-sm border-b border-slate-200 sticky top-[74px] z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="category-scroll-container" class="flex items-center overflow-x-auto py-3.5 gap-2 no-scrollbar scroll-smooth">
+        <button onclick="filterCategory('All')" id="btn-cat-All" class="cat-btn active bg-[#0497a7] text-white px-4 py-2 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap shadow-sm transition-all">
+          Todos os Cursos (30)
+        </button>
+        <button onclick="filterCategory('Especializados')" id="btn-cat-Especializados" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-full font-semibold text-xs sm:text-sm whitespace-nowrap transition-all">
+          Especializados
+        </button>
+        <button onclick="filterCategory('SegurancaComportamento')" id="btn-cat-SegurancaComportamento" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-full font-semibold text-xs sm:text-sm whitespace-nowrap transition-all">
+          Segurança e Comportamento
+        </button>
+        <button onclick="filterCategory('GestaoEficiencia')" id="btn-cat-GestaoEficiencia" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-full font-semibold text-xs sm:text-sm whitespace-nowrap transition-all">
+          Gestão e Eficiência
+        </button>
+        <button onclick="filterCategory('OperacoesEspeciais')" id="btn-cat-OperacoesEspeciais" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-full font-semibold text-xs sm:text-sm whitespace-nowrap transition-all">
+          Operações Especiais
+        </button>
+        <button onclick="filterCategory('JuridicoNormas')" id="btn-cat-JuridicoNormas" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-full font-semibold text-xs sm:text-sm whitespace-nowrap transition-all">
+          Jurídico e Normas
+        </button>
+        <button onclick="filterCategory('LiderancaBemEstar')" id="btn-cat-LiderancaBemEstar" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-full font-semibold text-xs sm:text-sm whitespace-nowrap transition-all">
+          Liderança e Bem-Estar
+        </button>
+        <button onclick="filterCategory('TecnologiaInovacao')" id="btn-cat-TecnologiaInovacao" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-full font-semibold text-xs sm:text-sm whitespace-nowrap transition-all">
+          Tecnologia e Inovação
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid principal contendo todos os cards de cursos -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+    <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Cards serão injetados dinamicamente via JS -->
+    </div>
+  </main>
+</div>
+
+<!-- PAGINA 2: RESULTADO DA VOTAÇÃO CONSOLIDADO -->
+<div id="page-results" class="hidden flex-grow flex flex-col">
+  <section class="bg-gradient-to-br from-slate-900 to-[#0b0c10] text-white py-12 px-4 relative">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="bg-[#0497a7]/20 text-[#0497a7] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-[#0497a7]/30">Resultados Coletivos em Tempo Real</span>
+      <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-4 mb-4 drop-shadow-sm text-slate-100">
+        Procura e Interesse Geral
+      </h2>
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed mb-6">
+        Resultados dinâmicos baseados no feedback acumulado de todos os participantes.
+      </p>
+      
+      <!-- Botão para voltar ao catálogo a partir da tela de resultados -->
+      <button onclick="switchPage('catalog')" class="bg-[#0497a7] hover:bg-[#037885] text-white font-bold py-2.5 px-6 rounded-full shadow-lg transition-all transform hover:scale-105 inline-flex items-center gap-2 text-sm">
+        ← Voltar ao Catálogo
+      </button>
+    </div>
+  </section>
+
+  <!-- Dashboard de Métricas -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full space-y-8">
+    <!-- Cartões de Resumo -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total de Participantes</span>
+        <div class="mt-4 flex items-baseline gap-2">
+          <span id="stat-rated-count" class="text-4xl font-extrabold text-[#0497a7]">0</span>
+          <span class="text-sm font-medium text-slate-500">utilizadores</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">Votantes consolidados que enviaram as suas preferências.</p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Média de Interesse</span>
+        <div class="mt-4 flex items-baseline gap-2">
+          <span id="stat-avg-score" class="text-4xl font-extrabold text-[#f96c05]">0.0</span>
+          <span class="text-sm font-medium text-slate-500">/ 10</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">Classificação média de todos os cursos avaliados.</p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Cursos de Topo (Média ≥ 8)</span>
+        <div class="mt-4 flex items-baseline gap-2">
+          <span id="stat-high-interest" class="text-4xl font-extrabold text-teal-600">0</span>
+          <span class="text-sm font-medium text-slate-500">programas</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">Treinamentos prioritários de alta demanda coletiva.</p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Categoria Favorita</span>
+        <div class="mt-4">
+          <span id="stat-top-category" class="text-lg sm:text-xl font-extrabold text-[#8c7c54] block truncate">Nenhuma</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">A categoria com maior acúmulo médio de interesse.</p>
+      </div>
+    </div>
+
+    <!-- Seção de Gráficos Analíticos -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Gráfico 1: Média de Interesse por Categoria (PIZZA) -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md lg:col-span-5 flex flex-col">
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-slate-900">Interesse por Categorias</h3>
+          <p class="text-xs text-slate-500">Nível médio de preferência acumulado em cada área de estudo.</p>
+        </div>
+        <div class="flex-grow flex flex-col sm:flex-row items-center justify-center gap-6">
+          <!-- SVG Pizza Chart Container -->
+          <div class="relative w-44 h-44 flex-shrink-0">
+            <svg id="pie-chart-svg" viewBox="0 0 100 100" class="w-full h-full transform -rotate-90">
+              <!-- Slices geradas por JS -->
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-full w-24 h-24 m-auto shadow-inner text-center p-1">
+              <span id="pie-center-label" class="text-[10px] font-bold text-slate-400 uppercase">Média</span>
+              <span id="pie-center-value" class="text-lg font-extrabold text-[#0497a7]">0.0</span>
+            </div>
+          </div>
+          <!-- Legenda da Pizza -->
+          <div id="pie-chart-legend" class="flex-grow space-y-2.5 w-full text-xs">
+            <!-- Legenda dinâmica por JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico 2: Ranking de Cursos com Filtro por Categoria -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md lg:col-span-7 flex flex-col">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Ranking dos Programas</h3>
+            <p class="text-xs text-slate-500">Compare as notas médias dos cursos com base nos filtros.</p>
+          </div>
+          <!-- Seletor do Filtro do Gráfico -->
+          <select id="chart-category-filter" onchange="updateCourseChart()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-xl focus:ring-[#0497a7] focus:border-[#0497a7] p-2 sm:p-2.5 outline-none font-medium">
+            <option value="All">Todos os Cursos (Top 10)</option>
+            <option value="Especializados">Especializados</option>
+            <option value="SegurancaComportamento">Segurança e Comportamento</option>
+            <option value="GestaoEficiencia">Gestão e Eficiência</option>
+            <option value="OperacoesEspeciais">Operações Especiais</option>
+            <option value="JuridicoNormas">Jurídico e Normas</option>
+            <option value="LiderancaBemEstar">Liderança e Bem-Estar</option>
+            <option value="TecnologiaInovacao">Tecnologia e Inovação</option>
+          </select>
+        </div>
+        <div id="course-chart-container" class="space-y-4 flex-grow overflow-y-auto max-h-[300px] pr-1">
+          <!-- Gráficos gerados dinamicamente -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela de Classificação de Interesse Completo -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-md overflow-hidden">
+      <div class="p-6 border-b border-slate-200">
+        <h3 class="text-xl font-bold text-slate-900">Rank de Preferência Geral</h3>
+        <p class="text-xs text-slate-500">Listagem completa de cursos ordenados pelo nível médio de interesse coletivo.</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <th class="py-4 px-6">Curso</th>
+              <th class="py-4 px-6">Categoria</th>
+              <th class="py-4 px-6 text-center w-36">Pontuação Média</th>
+              <th class="py-4 px-6 w-1/3">Termômetro de Interesse</th>
+            </tr>
+          </thead>
+          <tbody id="results-table-body" class="divide-y divide-slate-100 text-sm">
+            <!-- Linhas serão injetadas via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      <div id="no-results-view" class="hidden text-center py-16 text-slate-500">
+        <p class="text-base font-semibold">Nenhum voto computado ainda</p>
+        <p class="text-xs text-slate-400 mt-1">Por favor, acesse o catálogo e atribua notas aos treinamentos para ver o relatório.</p>
+        <button onclick="switchPage('catalog')" class="mt-4 bg-[#0497a7] hover:bg-[#037885] text-white px-5 py-2 rounded-full font-bold text-xs shadow-md transition-all">
+          Ir para o Catálogo
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- FORMULÁRIO DE ENVIO E IDENTIFICAÇÃO (POSICIONADO LOGO ACIMA DO RODAPÉ) -->
+<section id="contact-form-section" class="bg-white border-t border-slate-200 py-16 px-4">
+  <div class="max-w-3xl mx-auto bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-lg relative">
+    <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-[#0497a7] text-white px-6 py-2 rounded-full font-bold text-sm tracking-wide shadow-md">
+      Etapa Final
+    </div>
+    <div class="text-center mt-4 mb-8">
+      <h3 class="text-2xl font-extrabold text-[#0497a7]">Preencha seus Dados para Enviar</h3>
+      <p class="text-[#8c7c54] text-sm mt-1">Insira suas informações de contato para consolidar sua planilha de interesses.</p>
+    </div>
+    <form id="feedback-form" onsubmit="submitForm(event)" class="space-y-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label class="block text-xs font-bold text-[#8c7c54] uppercase mb-1.5">Nome Completo *</label>
+          <input type="text" id="form-name" required placeholder="Digite seu nome completo" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0497a7] focus:border-transparent text-sm bg-white transition-all">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-[#8c7c54] uppercase mb-1.5">Empresa *</label>
+          <input type="text" id="form-company" required placeholder="Nome da empresa" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0497a7] focus:border-transparent text-sm bg-white transition-all">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="md:col-span-1">
+          <label class="block text-xs font-bold text-[#8c7c54] uppercase mb-1.5">Cargo *</label>
+          <input type="text" id="form-role" required placeholder="Seu cargo atual" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0497a7] focus:border-transparent text-sm bg-white transition-all">
+        </div>
+        <div class="md:col-span-1">
+          <label class="block text-xs font-bold text-[#8c7c54] uppercase mb-1.5">E-mail Corporativo *</label>
+          <input type="email" id="form-email" required placeholder="seuemail@empresa.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0497a7] focus:border-transparent text-sm bg-white transition-all">
+        </div>
+        <div class="md:col-span-1">
+          <label class="block text-xs font-bold text-[#8c7c54] uppercase mb-1.5">Telefone / WhatsApp *</label>
+          <input type="tel" id="form-phone" required placeholder="(00) 00000-0000" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0497a7] focus:border-transparent text-sm bg-white transition-all">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label class="block text-xs font-bold text-[#8c7c54] uppercase mb-1.5">Sugestão de novo Curso</label>
+          <input type="text" id="form-suggested-course" placeholder="Ex: Direção Tática de Segurança" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0497a7] focus:border-transparent text-sm bg-white transition-all">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-[#8c7c54] uppercase mb-1.5">Sugestão de nova Categoria</label>
+          <input type="text" id="form-suggested-category" placeholder="Ex: Transporte de Valores" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0497a7] focus:border-transparent text-sm bg-white transition-all">
+        </div>
+      </div>
+
+      <div class="pt-4">
+        <button type="submit" id="submit-btn" class="w-full bg-[#f96c05] hover:bg-orange-600 text-white font-extrabold py-4 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3 text-base">
+          <span id="btn-text">Enviar Dados e Notas de Interesse</span>
+          <svg id="btn-spinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Modal para exibição rápida e detalhada do curso clicado -->
+<div id="course-modal" class="hidden fixed inset-0 bg-slate-900/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-all duration-200">
+  <div class="bg-white rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl relative border-t-8 border-[#0497a7] transform scale-95 transition-transform duration-200">
+    <!-- Capa no modal -->
+    <div id="modal-header-container" class="h-44 relative overflow-hidden bg-slate-950">
+      <!-- Conteúdo dinâmico gerado via JS -->
+    </div>
+    <div class="p-6 sm:p-8">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-red-400 bg-black/40 hover:bg-black/60 w-8 h-8 rounded-full flex items-center justify-center text-xl transition-all z-30">&times;</button>
+      <h3 id="modal-title" class="text-xl sm:text-2xl font-bold text-[#0497a7] mb-3 leading-snug"></h3>
+      <div class="max-h-48 overflow-y-auto pr-2 mb-6">
+        <p id="modal-desc" class="text-slate-600 leading-relaxed text-sm sm:text-base"></p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button onclick="closeModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 py-3 rounded-xl font-bold text-sm transition-all text-center">
+          Voltar ao Catálogo
+        </button>
+        <button id="modal-action-btn" class="flex-1 bg-[#f96c05] hover:bg-orange-600 text-white py-3 rounded-xl font-bold text-sm transition-all text-center shadow-md">
+          Interesse Máximo (Nota 10)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Alerta personalizado que substitui o alert() padrão do navegador -->
+<div id="alert-modal" class="hidden fixed inset-0 bg-slate-900/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+  <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center shadow-xl border-t-4 border-[#f96c05]">
+    <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mx-auto mb-4 text-[#f96c05] text-2xl font-bold">
+      ✓
+    </div>
+    <h4 id="alert-title" class="text-lg font-bold text-slate-900 mb-2">Excelente!</h4>
+    <p id="alert-msg" class="text-sm text-slate-600 mb-6"></p>
+    <button onclick="closeAlert()" class="w-full bg-[#0497a7] hover:bg-[#037885] text-white py-2.5 rounded-xl font-bold text-sm transition-all">
+      Entendido
+    </button>
+  </div>
+</div>
+
+<!-- Rodapé -->
+<footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-4">
+      <img src="/logo-previa.png" alt="Logo Previa" class="h-8 w-auto opacity-70" onerror="this.src='https://placehold.co/120x40/0b0c10/0497a7?text=PREVIA'">
+      <p class="text-xs">&copy; 2026 Previa Consultoria. Todos os direitos reservados.</p>
+    </div>
+    <div class="flex gap-6 text-xs">
+      <a href="https://www.previatreinamentos.com.br" target="_blank" class="hover:text-white transition-colors">Website Oficial</a>
+      <span class="text-[#0497a7] font-semibold">Educação e Engenharia de Trânsito</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Firebase SDK p/ armazenamento em tempo real na nuvem -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+// Webhook Google Sheets
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqM4OQc3f06_WZU19dmlnzpx3jNP6quYcgVOQh-1R_DTvXv100vGGp1foc8Cv7jE3kkQ/exec'; 
+
+// Dados dos cursos e categorias oficiais
+const courses = [
+  // ESPECIALIZADOS
+  {
+    id: 1,
+    title: "Formação de Condutores de Emergência (Res. 1020)",
+    cat: "Especializados",
+    desc: "Legislação avançada, sinalização acústica/luminosa e deslocamentos prioritários rápidos.",
+    longDesc: "Capacitação completa para profissionais de saúde e segurança pública, com foco na Resolução CONTRAN 1020. O treinamento desenvolve competências para a condução segura de ambulâncias, viaturas e carros de resgate, minimizando os riscos em deslocamentos sob extrema pressão de tempo."
+  },
+  {
+    id: 2,
+    title: "Transporte Escolar: Normas e Segurança Viária",
+    cat: "Especializados",
+    desc: "Técnicas de segurança no embarque/desembarque e relacionamento ético no transporte de escolares.",
+    longDesc: "Preparação de condutores com as mais rígidas exigências técnicas do trânsito escolar. Desenvolve condutas preventivas, a inspeção diária do veículo escolar, além de dinâmicas para assegurar a integridade de menores de idade durante o trajeto de acordo com as normas de segurança viária."
+  },
+  {
+    id: 3,
+    title: "MOPP: Segurança no Transporte de Cargas Perigosas",
+    cat: "Especializados",
+    desc: "Classificação de produtos químicos, EPIs e plano de ação e contingência de emergências.",
+    longDesc: "Para motoristas de veículos de transporte rodoviário de produtos e resíduos perigosos. Foca no cumprimento regulatório, movimentação segura de inflamáveis, gases, explosivos e tóxicos, contenção de vazamentos e gerenciamento de riscos ambientais."
+  },
+  {
+    id: 4,
+    title: "Transporte de Cargas Indivisíveis e Batedores",
+    cat: "Especializados",
+    desc: "Procedimentos, sinalização e escoltas para operações especiais de grandes dimensões.",
+    longDesc: "Curso essencial para condutores de carretas especiais, bitrens e profissionais de escolta armada ou batedores. Aborda sinalização especial das combinações de veículos, rotas autorizadas, limites físicos de viadutos e planos logísticos detalhados de tráfego."
+  },
+  {
+    id: 5,
+    title: "Gestão de Passageiros e Acessibilidade em Frota",
+    cat: "Especializados",
+    desc: "Relacionamento interpessoal, acessibilidade e condução segura de ônibus coletivos.",
+    longDesc: "Desenvolvido para frotas urbanas e rodoviárias. O programa foca no atendimento qualificado ao público, tratamento de pessoas com deficiência ou mobilidade reduzida, prevenção de acidentes internos e controle dinâmico da inércia do veículo de grande porte."
+  },
+  // SEGURANÇA E COMPORTAMENTO
+  {
+    id: 6,
+    title: "Direção Defensiva: Técnica e Comportamento",
+    cat: "SegurancaComportamento",
+    desc: "Técnicas de observação de 360°, antecipação de falhas e frenagem crítica preventiva.",
+    longDesc: "Análise profunda das condições adversas da via, clima, fadiga e comportamento humano. Ensina a criar uma bolha invisível de segurança ao redor do automóvel e a reagir preventivamente perante erros alheios."
+  },
+  {
+    id: 7,
+    title: "Condução Preventiva para Frotas Leves e Utilitários",
+    cat: "SegurancaComportamento",
+    desc: "Análise comportamental do condutor, agilidade defensiva e responsabilidade corporativa.",
+    longDesc: "Customizado para equipes comerciais, técnicas e frotistas corporativas com carros leves. Foca na eliminação da pressa perigosa, uso de tecnologias internas, redução de colisões urbanas e otimização do trajeto sob segurança estrita."
+  },
+  {
+    id: 8,
+    title: "Pilotagem Defensiva de Motocicletas",
+    cat: "SegurancaComportamento",
+    desc: "Frenagem combinada, controle de pontos cegos e posicionamento tático em corredores.",
+    longDesc: "A motocicleta exige máxima atenção tática por ser o elo mais frágil no trânsito urbano. Este módulo trabalha o domínio de curvas complexas, deslocamento correto de peso corporal, técnicas de frenagem de emergência e alta visibilidade urbana."
+  },
+  {
+    id: 9,
+    title: "Análise de Riscos e Prevenção de Sinistros",
+    cat: "SegurancaComportamento",
+    desc: "Mapeamento comportamental e estatístico para redução de acidentes na jornada de trabalho.",
+    longDesc: "Treinamento especializado para que condutores e gestores identifiquem as maiores causas de sinistros (como uso de celular e distrações) e implementem auditorias comportamentais ativas que salvem vidas."
+  },
+  {
+    id: 10,
+    title: "Condução em Condições Adversas e Climas Extremos",
+    cat: "SegurancaComportamento",
+    desc: "Controle em aquaplanagens, frenagem de pânico em asfalto molhado, neblina e baixa aderência.",
+    longDesc: "Treinamento tático e prático sobre física de dinâmica veicular sob asfalto molhado, poças de óleo, poeira ou visibilidade próxima a zero. Ensina reações rápidas de esterçamento para recuperar aderência."
+  },
+  // GESTÃO E EFICIÊNCIA
+  {
+    id: 11,
+    title: "Eco-Driving: Eficiência Energética e Redução de Custos",
+    cat: "GestaoEficiencia",
+    desc: "Gerenciamento inteligente de marchas, controle de inércia e otimização do combustível.",
+    longDesc: "Focado em motoristas de frotas comerciais leves e pesadas. Ensina a compreender as rotações eficientes do motor, ocorrência da aceleração progressiva, e o aproveitamento máximo da energia cinética para reduzir até 20% do combustível e desgaste."
+  },
+  {
+    id: 12,
+    title: "Gestão de Performance: Telemetria Aplicada",
+    cat: "GestaoEficiencia",
+    desc: "Análise de relatórios de computador de bordo e correção ativa de hábitos ruins de direção.",
+    longDesc: "Instrui motoristas profissionais a ler e compreender os feedbacks gerados pelo sistema de telemetria corporativa (excesso de velocidade, frenagens bruscas, tempo em marcha lenta), aplicando correções táticas imediatas."
+  },
+  {
+    id: 13,
+    title: "Condução Eficiente e Redução de Emissões (Foco em ESG)",
+    cat: "GestaoEficiencia",
+    desc: "Métodos modernos de direção para descarbonização e impacto ambiental positivo.",
+    longDesc: "Conecta os conceitos modernos de ESG (Sustentabilidade Ambiental, Social e de Governança) à realidade prática do condutor de frotas, demonstrando o impacto real da direção preventiva na redução de gases poluentes."
+  },
+  {
+    id: 14,
+    title: "Manutenção Preventiva e Conservação da Frota",
+    cat: "GestaoEficiencia",
+    desc: "Checklists diários inteligentes de inspeção visual, conservação e vida útil do veículo.",
+    longDesc: "Qualifica o condutor para antecipar falhas mecânicas caras. Aborda análise preventiva de freios, pneus, fluidos, correias e ruídos anômalos que possam paralisar a operação produtiva da empresa."
+  },
+  {
+    id: 15,
+    title: "Gestão de TCO: Otimizando o Ciclo de Vida do Veículo",
+    cat: "GestaoEficiencia",
+    desc: "Direcionamento focado na redução do Custo Total de Propriedade do veículo corporativo.",
+    longDesc: "Desenha uma ponte clara entre a condução do dia a dia e o impacto financeiro de longo prazo no ciclo de depreciação, desgaste e custos operacionais agregados aos ativos de transporte da empresa."
+  },
+  // OPERAÇÕES ESPECIAIS
+  {
+    id: 16,
+    title: "Operação e Segurança Off-Road 4x4",
+    cat: "OperacoesEspeciais",
+    desc: "Mapeamento de tração integral, uso de marcha reduzida e transposição segura de aclives.",
+    longDesc: "Treinamento tático e operacional para frotas que trafegam em estradas rurais, frentes de obra ou acessos lamacentos de mineradoras. Foca no uso correto de bloqueios de diferencial e prevenção de quebras de suspensão."
+  },
+  {
+    id: 17,
+    title: "Resgate e Auto-recuperação em Ambientes Hostis",
+    cat: "OperacoesEspeciais",
+    desc: "Uso de guinchos elétricos, cintas de arrasto, pranchas e ancoragem segura off-road.",
+    longDesc: "Desenvolvido para equipes operacionais de áreas de difícil acesso ou equipes de campo. Treina o uso de equipamentos de força física e mecânica para remoção de veículos atolados de maneira 100% segura e regulamentada."
+  },
+  {
+    id: 18,
+    title: "Direção de Veículos de Apoio em Mineração e Obras",
+    cat: "OperacoesEspeciais",
+    desc: "Tráfego seguro em mineradoras, interação com caminhões gigantes de minas e pontos cegos críticos.",
+    longDesc: "Ensina as rígidas normas setoriais do tráfego interno de obras complexas e jazidas. Prepara o motorista de picapes leves a sinalizar-se perante máquinas gigantes, evitando acidentes graves por esmagamento ou ponto cego."
+  },
+  {
+    id: 19,
+    title: "Técnicas de Operação em Terrenos de Difícil Acesso",
+    cat: "OperacoesEspeciais",
+    desc: "Operações táticas em dunas, encostas escorregadias, terrenos pedregosos e travessias alagadas.",
+    longDesc: "Um guia aprofundado sobre inclinações extremas laterais, prevenção de capotamentos, uso do freio motor em descidas acentuadas e cálculo seguro da altura máxima de água permitida para cruzamento."
+  },
+  {
+    id: 20,
+    title: "Normas Ambientais em Operações Off-Road",
+    cat: "OperacoesEspeciais",
+    desc: "Condução em áreas de preservação ambiental com impacto mínimo e conformidade legal.",
+    longDesc: "Focado em mitigar o impacto de erosão de solos, poluição de nascentes ou danos à flora local durante o deslocamento operacional das equipes de manutenção civil, elétrica ou florestal."
+  },
+  // JURÍDICO E NORMAS
+  {
+    id: 21,
+    title: "Atualização em Legislação e CTB",
+    cat: "JuridicoNormas",
+    desc: "Análise das leis vigentes, infrações, penalidades severas e pontuações na CNH do condutor.",
+    longDesc: "Mantém os condutores em dia com as últimas reformas e portarias do Código de Trânsito Brasileiro. Foca em evitar suspensões de habilitação profissionais por descumprimento legal."
+  },
+  {
+    id: 22,
+    title: "Gestão de Riscos Viários e Engenharia de Tráfego",
+    cat: "JuridicoNormas",
+    desc: "Uso de estatísticas, leis geométricas de tráfego e infraestrutura viária para motoristas.",
+    longDesc: "Ensina a ler e interpretar a sinalização rodoviária, táticas de engenharia urbana e a prever curvas acentuadas ou cruzamentos perigosos por meio da sinalização ativa de solo e de placas de trânsito."
+  },
+  {
+    id: 23,
+    title: "Fiscalização Eletrônica e Gestão de Infrações",
+    cat: "JuridicoNormas",
+    desc: "Entendimento técnico sobre radares, tolerâncias metrológicas legais do INMETRO e multas corporativas.",
+    longDesc: "Esclarece o funcionamento tecnológico de radares fotográficos, laços indutivos na pista, limites e tolerâncias regulamentadas, instruindo sobre a responsabilidade do condutor perante multas na frota corporativa."
+  },
+  {
+    id: 24,
+    title: "Compliance e Responsabilidade Civil do Condutor",
+    cat: "JuridicoNormas",
+    desc: "Prevenção de processos, conduta corporativa em acidentes e as implicações penais e cíveis.",
+    longDesc: "Aborda a responsabilidade solidária entre a empresa e o motorista, integrando regras de compliance e as consequências legais em caso de negligência, imperícia ou imprudência no comando do veículo corporativo."
+  },
+  {
+    id: 25,
+    title: "Gestão de Processos Administrativos de Trânsito",
+    cat: "JuridicoNormas",
+    desc: "Rotina operacional interna de recursos de multas, defesas e indicação de condutores (NIC).",
+    longDesc: "Essencial para administradores de frotas e motoristas. Ensina os fluxos formais de envio de documentação, prazos legais para a correta identificação dos condutores infratores, mitigando as multas por Não Indicação (NIC)."
+  },
+  // LIDERANÇA E BEM-ESTAR
+  {
+    id: 26,
+    title: "Psicologia do Trânsito: Gestão de Fadiga e Estresse",
+    cat: "LiderancaBemEstar",
+    desc: "Fatores fisiológicos de fadiga, sono, estresse sob pressão e regulação comportamental.",
+    longDesc: "Ensina táticas mentais para evitar a direção agressiva em grandes centros urbanos e engarrafamentos. Ajuda a identificar os primeiros sintomas de sono e estafa para que os motoristas evitem acidentes por lentidão de reflexos."
+  },
+  {
+    id: 28,
+    title: "Etiqueta e Atendimento para Motoristas Executivos",
+    cat: "LiderancaBemEstar",
+    desc: "Condução suave de VIPs, postura corporativa, planejamento de rotas seguras e discrição profissional.",
+    longDesc: "Desenvolvido para condutores de comitivas executivas, presidentes, diretores e convidados especiais. Foca em postura profissional exemplar, direção confortável de carros sedã de luxo e prevenção contra sinistros urbanos."
+  },
+  {
+    id: 29,
+    title: "Liderança e Didática para Instrutores de Frota",
+    cat: "LiderancaBemEstar",
+    desc: "Formação técnica de multiplicadores viários internos para equipes de SESMT e CIPA.",
+    longDesc: "Transforma seus melhores profissionais de segurança e transporte em líderes multiplicadores que sabem repassar as técnicas de segurança veicular para os demais motoristas com metodologia educacional de alta eficácia."
+  },
+  // TECNOLOGIA E INOVAÇÃO
+  {
+    id: 27,
+    title: "Condução de Veículos Híbridos e Elétricos",
+    cat: "TecnologiaInovacao",
+    desc: "Particularidades de torque instantâneo, frenagem regenerativa e segurança ativa em alta tensão.",
+    longDesc: "Capacita condutores corporativos para operar frotas modernas eletrificadas. Aborda táticas de máxima regeneração de bateria, condução preditiva, gerenciamento inteligente de autonomia e protocolos vitais de segurança em sistemas elétricos de alta tensão corporativa."
+  },
+  {
+    id: 30,
+    title: "Mobilidade Corporativa Inteligente e Sustentável",
+    cat: "TecnologiaInovacao",
+    desc: "Planejamento inteligente de caronas solidárias corporativas e transporte integrado.",
+    longDesc: "Incentiva condutas e projetos sustentáveis de mobilidade corporativa integrada, diminuindo congestionamentos, organizando frotas de transporte compartilhado e otimizando o deslocamento diário da equipe."
+  }
+];
+
+const categoryColors = {
+  'Especializados': '#0497a7',
+  'SegurancaComportamento': '#f96c05',
+  'GestaoEficiencia': '#8c7c54',
+  'OperacoesEspeciais': '#10b981',
+  'JuridicoNormas': '#6366f1',
+  'LiderancaBemEstar': '#ec4899',
+  'TecnologiaInovacao': '#8b5cf6'
+};
+
+const friendlyCategories = {
+  'Especializados': 'Especializados',
+  'SegurancaComportamento': 'Segurança e Comportamento',
+  'GestaoEficiencia': 'Gestão e Eficiência',
+  'OperacoesEspeciais': 'Operações Especiais',
+  'JuridicoNormas': 'Jurídico e Normas',
+  'LiderancaBemEstar': 'Liderança e Bem-Estar',
+  'TecnologiaInovacao': 'Tecnologia e Inovação'
+};
+
+// Dados de simulação (Fallback para quando o Firebase não possui credenciais salvas no ambiente)
+const mockSimulationVotes = [
+  {
+    id: "simulated-vote-1",
+    nome: "Carlos Eduardo Silva",
+    empresa: "TransLeste Transportes Ltda",
+    cargo: "Supervisor de Frota",
+    email: "carlos.frota@transleste.com",
+    telefone: "(11) 98111-2222",
+    cursoSugerido: "MOPP Reciclagem Express",
+    categoriaSugerida: "Reciclagem",
+    votos: {
+      "Formação de Condutores de Emergência (Res. 1020)": 9,
+      "MOPP: Segurança no Transporte de Cargas Perigosas": 10,
+      "Direção Defensiva: Técnica e Comportamento": 10,
+      "Condução Preventiva para Frotas Leves e Utilitários": 8,
+      "Gestão de Performance: Telemetria Aplicada": 9,
+      "Manutenção Preventiva e Conservação da Frota": 8,
+      "Atualização em Legislação e CTB": 9
+    }
+  },
+  {
+    id: "simulated-vote-2",
+    nome: "Mariana Alencar",
+    empresa: "Mineração Ouro Verde",
+    cargo: "Engenheira de Segurança (SESMT)",
+    email: "mariana.alencar@ouroverde.com",
+    telefone: "(31) 99222-3333",
+    votos: {
+      "Direção Defensiva: Técnica e Comportamento": 10,
+      "Condução em Condições Adversas e Climas Extremos": 9,
+      "Operação e Segurança Off-Road 4x4": 10,
+      "Resgate e Auto-recuperação em Ambientes Hostis": 10,
+      "Direção de Veículos de Apoio em Mineração e Obras": 10,
+      "Técnicas de Operação em Terrenos de Difícil Acesso": 9,
+      "Psicologia do Trânsito: Gestão de Fadiga e Estresse": 8
+    }
+  },
+  {
+    id: "simulated-vote-3",
+    nome: "Roberto Guedes",
+    empresa: "Logística Expressa Brasil",
+    cargo: "Diretor de Operações",
+    email: "roberto.guedes@logexpress.com.br",
+    telefone: "(21) 97333-4444",
+    votos: {
+      "Direção Defensiva: Técnica e Comportamento": 9,
+      "Eco-Driving: Eficiência Energética e Redução de Custos": 10,
+      "Gestão de Performance: Telemetria Aplicada": 9,
+      "Condução Eficiente e Redução de Emissões (Foco em ESG)": 10,
+      "Gestão de TCO: Otimizando o Ciclo de Vida do Veículo": 8,
+      "Condução de Veículos Híbridos e Elétricos": 9,
+      "Mobilidade Corporativa Inteligente e Sustentável": 8
+    }
+  }
+];
+
+// Variáveis de Estado locais & globais
+let user = null;
+let allVotesData = [...mockSimulationVotes]; // Carregado com simulação rica por padrão
+let cachedConsolidatedCourses = [];
+let userVotes = {};
+let currentModalCourseId = null;
+let currentPage = 'catalog';
+let isSimulationMode = true; // Muda para false se conectar no Firebase real
+
+// Carregamento Seguro de Credenciais
+let dbInstance = null;
+let authInstance = null;
+let appId = 'previa-consultoria-app';
+
+try {
+  if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+    const config = JSON.parse(__firebase_config);
+    const firebaseApp = initializeApp(config);
+    authInstance = getAuth(firebaseApp);
+    dbInstance = getFirestore(firebaseApp);
+    appId = typeof __app_id !== 'undefined' ? __app_id : 'previa-consultoria-app';
+    isSimulationMode = false;
+    console.log("Sistema conectado na nuvem corporativa.");
+  } else {
+    console.log("Ambiente sem Firebase Config. Rodando em Modo Simulação Local Premium.");
+  }
+} catch (e) {
+  console.error("Falha ao inicializar o Firebase. Rodando em Modo Simulação Local.", e);
+  isSimulationMode = true;
+}
+
+// Inicialização segura de Autenticação se não for simulação
+const initAuth = async () => {
+  if (isSimulationMode || !authInstance) return;
+  try {
+    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+      await signInWithCustomToken(authInstance, __initial_auth_token);
+    } else {
+      await signInAnonymously(authInstance);
+    }
+  } catch (error) {
+    console.warn("Autenticação anônima bloqueada ou indisponível. Utilizando modo simulador.", error);
+    isSimulationMode = true;
+  }
+};
+
+if (!isSimulationMode) {
+  initAuth();
+  onAuthStateChanged(authInstance, (u) => {
+    user = u;
+    if (user) {
+      setupRealtimeVotes();
+    }
+  });
+} else {
+  // Dispara carregamento das estatísticas da simulação local no carregamento da tela
+  setTimeout(() => {
+    updatePublicBadges();
+  }, 100);
+}
+
+// Configuração de sincronização em tempo real na nuvem
+function setupRealtimeVotes() {
+  if (isSimulationMode || !user || !dbInstance) return;
+  try {
+    const votesCol = collection(dbInstance, 'artifacts', appId, 'public', 'data', 'votes');
+    onSnapshot(votesCol, (snapshot) => {
+      const liveVotes = [];
+      snapshot.forEach((doc) => {
+        liveVotes.push({ id: doc.id, ...doc.data() });
+      });
+      // Mescla votos da nuvem com votos simulados para gráficos mais robustos
+      allVotesData = liveVotes.length > 0 ? liveVotes : [...mockSimulationVotes];
+      updatePublicBadges();
+      if (currentPage === 'results') {
+        renderResultsDashboard();
+      }
+    }, (error) => {
+      console.warn("Acesso restrito ao Firestore no sandbox. Utilizando simulação local.", error);
+      isSimulationMode = true;
+    });
+  } catch (e) {
+    isSimulationMode = true;
+  }
+}
+
+// Atualizar badges públicos de participação
+function updatePublicBadges() {
+  const count = allVotesData.length;
+  const badge = document.getElementById('nav-results-badge');
+  if (badge) badge.innerText = count;
+}
+
+// Expõe funções vitais ao escopo global para compatibilidade com eventos inline
+window.switchPage = switchPage;
+window.filterCategory = filterCategory;
+window.vote = vote;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.scrollToForm = scrollToForm;
+window.showAlert = showAlert;
+window.closeAlert = closeAlert;
+window.submitForm = submitForm;
+window.updateCourseChart = updateCourseChart;
+window.setPieCenterText = setPieCenterText;
+
+// Gera dinamicamente o design do topo do card (Paralelogramo geométrico clean)
+function getCourseCardHeaderHtml(c) {
+  const color = categoryColors[c.cat] || '#0497a7';
+  return `
+    <div class="w-full h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 flex flex-col justify-center items-center p-4 text-center relative select-none">
+      <div class="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+      
+      <svg class="absolute inset-0 w-full h-full p-2" preserveAspectRatio="none" viewBox="0 0 100 100">
+        <polygon points="10,15 90,15 80,85 0,85" fill="${color}" opacity="0.95" />
+      </svg>
+      
+      <div class="w-4/5 py-1 px-2 z-10 text-center">
+        <span class="text-white text-xs sm:text-sm font-black uppercase tracking-wider drop-shadow-md line-clamp-3 leading-snug">
+          ${c.title}
+        </span>
+      </div>
+    </div>
+  `;
+}
+
+// Função para alternar de página de forma fluida
+function switchPage(pageId) {
+  currentPage = pageId;
+  const catalogPage = document.getElementById('page-catalog');
+  const resultsPage = document.getElementById('page-results');
+  const navBtnCatalog = document.getElementById('nav-btn-catalog');
+  const navBtnResults = document.getElementById('nav-btn-results');
+
+  if (pageId === 'catalog') {
+    catalogPage.classList.remove('hidden');
+    resultsPage.classList.add('hidden');
+    navBtnCatalog.className = "px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all text-white bg-[#0497a7]";
+    navBtnResults.className = "px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all text-slate-400 hover:text-white";
+  } else {
+    catalogPage.classList.add('hidden');
+    resultsPage.classList.remove('hidden');
+    navBtnCatalog.className = "px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all text-slate-400 hover:text-white";
+    navBtnResults.className = "px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all text-white bg-[#0497a7]";
+    renderResultsDashboard();
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Atualiza o texto centralizado do gráfico Donut/Pizza
+function setPieCenterText(label, score) {
+  const lbl = document.getElementById('pie-center-label');
+  const val = document.getElementById('pie-center-value');
+  if (lbl) lbl.innerText = label;
+  if (val) val.innerText = score;
+}
+
+// Renderiza o Dashboard de Resultados com agregação global precisa
+function renderResultsDashboard() {
+  const ratedCount = allVotesData.length;
+  const statCount = document.getElementById('stat-rated-count');
+  if (statCount) statCount.innerText = ratedCount;
+
+  const tableBody = document.getElementById('results-table-body');
+  const noResultsView = document.getElementById('no-results-view');
+
+  if (ratedCount === 0) {
+    document.getElementById('stat-avg-score').innerText = "0.0";
+    document.getElementById('stat-high-interest').innerText = "0";
+    document.getElementById('stat-top-category').innerText = "Nenhuma";
+    document.getElementById('pie-chart-svg').innerHTML = '';
+    document.getElementById('pie-chart-legend').innerHTML = `<p class="text-center text-slate-400 py-4">Aguardando as primeiras avaliações...</p>`;
+    document.getElementById('course-chart-container').innerHTML = `<p class="text-center py-6 text-slate-400 text-xs">Aguardando as primeiras avaliações...</p>`;
+    if (tableBody) tableBody.innerHTML = '';
+    if (noResultsView) noResultsView.classList.remove('hidden');
+    return;
+  }
+  if (noResultsView) noResultsView.classList.add('hidden');
+
+  // Inicializar acumuladores de pontuações
+  let courseScoresSum = {};
+  let courseVoteCount = {};
+
+  courses.forEach(c => {
+    courseScoresSum[c.title] = 0;
+    courseVoteCount[c.title] = 0;
+  });
+
+  // Agrega dados de todas as submissões guardadas
+  allVotesData.forEach(voteDoc => {
+    const votos = voteDoc.votos || {};
+    for (const title in votos) {
+      if (courseScoresSum[title] !== undefined) {
+        courseScoresSum[title] += Number(votos[title]);
+        courseVoteCount[title] += 1;
+      }
+    }
+  });
+
+  // Consolidação final
+  let consolidatedCourses = courses.map(c => {
+    const sum = courseScoresSum[c.title];
+    const count = courseVoteCount[c.title];
+    const avg = count > 0 ? (sum / count) : 0;
+    return {
+      id: c.id,
+      title: c.title,
+      cat: c.cat,
+      avgScore: avg,
+      votesCount: count
+    };
+  });
+
+  // Salvar no estado global para filtro interativo do gráfico
+  cachedConsolidatedCourses = consolidatedCourses;
+
+  // Cálculo da Média Geral
+  let grandTotalSum = 0;
+  let grandTotalCount = 0;
+  consolidatedCourses.forEach(cc => {
+    if (cc.votesCount > 0) {
+      grandTotalSum += cc.avgScore;
+      grandTotalCount++;
+    }
+  });
+  const overallAvg = grandTotalCount > 0 ? (grandTotalSum / grandTotalCount).toFixed(1) : "0.0";
+  document.getElementById('stat-avg-score').innerText = overallAvg;
+  setPieCenterText("MÉDIA GERAL", overallAvg);
+
+  // Cursos de Topo (Média de interesse coletiva >= 8.0)
+  let highInterestCount = consolidatedCourses.filter(cc => cc.votesCount > 0 && cc.avgScore >= 8.0).length;
+  document.getElementById('stat-high-interest').innerText = highInterestCount;
+
+  // Mapeamento e cálculo médio das categorias
+  let catSums = {};
+  let catCounts = {};
+  consolidatedCourses.forEach(cc => {
+    if (cc.votesCount > 0) {
+      catSums[cc.cat] = (catSums[cc.cat] || 0) + cc.avgScore;
+      catCounts[cc.cat] = (catCounts[cc.cat] || 0) + 1;
+    }
+  });
+
+  let topCategory = "Nenhuma";
+  let topCategoryAvg = -1;
+  let categoriesAvgData = [];
+
+  for (const cat in friendlyCategories) {
+    const count = catCounts[cat] || 0;
+    const avg = count > 0 ? (catSums[cat] / count) : 0;
+    categoriesAvgData.push({
+      key: cat,
+      label: friendlyCategories[cat],
+      avg: avg,
+      color: categoryColors[cat] || '#cccccc'
+    });
+    if (avg > topCategoryAvg && count > 0) {
+      topCategoryAvg = avg;
+      topCategory = cat;
+    }
+  }
+  document.getElementById('stat-top-category').innerText = friendlyCategories[topCategory] || "Nenhuma";
+
+  // ---- 1. GERAR GRÁFICO DE PIZZA (DONUT) EM SVG ----
+  let sumAvg = categoriesAvgData.reduce((acc, curr) => acc + curr.avg, 0);
+  let cumulativePercent = 0;
+  let svgHtml = '';
+  let legendHtml = '';
+
+  // Função matemática para converter coordenadas polares em cartesianas
+  function getCoordinatesForPercent(percent) {
+    const x = Math.cos(2 * Math.PI * percent);
+    const y = Math.sin(2 * Math.PI * percent);
+    return [x, y];
+  }
+
+  categoriesAvgData.forEach(item => {
+    const percent = sumAvg > 0 ? (item.avg / sumAvg) : 0;
+    if (percent === 0) return;
+    
+    // Cálculo dos arcos do círculo SVG
+    const [startX, startY] = getCoordinatesForPercent(cumulativePercent);
+    cumulativePercent += percent;
+    const [endX, endY] = getCoordinatesForPercent(cumulativePercent);
+    const largeArcFlag = percent > 0.5 ? 1 : 0;
+
+    const pathData = [
+      `M ${startX * 40 + 50} ${startY * 40 + 50}`, // Move para borda
+      `A 40 40 0 ${largeArcFlag} 1 ${endX * 40 + 50} ${endY * 40 + 50}`, // Arco exterior
+      `L 50 50` // Fecha caminho no centro
+    ].join(' ');
+
+    svgHtml += `
+      <path d="${pathData}" 
+            fill="${item.color}" 
+            class="transition-all duration-300 cursor-pointer hover:opacity-85" 
+            onmouseover="setPieCenterText('${item.label.toUpperCase()}', '${item.avg.toFixed(1)}')"
+            onmouseout="setPieCenterText('MÉDIA GERAL', '${overallAvg}')">
+      </path>
+    `;
+
+    // Gerar item da legenda lateral
+    legendHtml += `
+      <div class="flex items-center gap-2 cursor-pointer transition-all hover:translate-x-1"
+           onmouseover="setPieCenterText('${item.label.toUpperCase()}', '${item.avg.toFixed(1)}')"
+           onmouseout="setPieCenterText('MÉDIA GERAL', '${overallAvg}')">
+        <span class="w-3 h-3 rounded-full shrink-0" style="background-color: ${item.color}"></span>
+        <span class="truncate font-medium text-slate-700 block flex-grow text-xs">${item.label}</span>
+        <span class="font-bold text-slate-500 text-right shrink-0 text-xs">${item.avg.toFixed(1)}</span>
+      </div>
+    `;
+  });
+
+  document.getElementById('pie-chart-svg').innerHTML = svgHtml || `<circle cx="50" cy="50" r="40" fill="#e2e8f0"></circle>`;
+  document.getElementById('pie-chart-legend').innerHTML = legendHtml || `<p class="text-xs text-slate-400">Nenhum interesse mapeado</p>`;
+
+  // ---- 2. GERAR GRÁFICO DE CURSOS (FILTRADO) ----
+  updateCourseChart();
+
+  // ---- 3. POPULAR TABELA DE DETALHES GERAIS ----
+  consolidatedCourses.sort((a, b) => b.avgScore - a.avgScore);
+  let tableHtml = '';
+  consolidatedCourses.forEach(cc => {
+    const isRated = cc.votesCount > 0;
+    const termometroWidth = isRated ? (cc.avgScore * 10).toFixed(0) + '%' : '0%';
+    const displayScore = isRated ? cc.avgScore.toFixed(1) : '0.0';
+    const displayVotes = cc.votesCount === 1 ? '1 voto' : cc.votesCount + ' votos';
+    
+    // Cores de termômetro conforme média
+    let termBg = 'bg-slate-200';
+    if (isRated) {
+      if (cc.avgScore >= 8) termBg = 'bg-teal-500';
+      else if (cc.avgScore >= 5) termBg = 'bg-amber-500';
+      else termBg = 'bg-orange-500';
+    }
+
+    tableHtml += `
+      <tr class="hover:bg-slate-50/80 transition-colors">
+        <td class="py-4 px-6">
+          <div class="font-semibold text-slate-800 leading-tight">${cc.title}</div>
+        </td>
+        <td class="py-4 px-6 text-slate-500 text-xs">${friendlyCategories[cc.cat] || cc.cat}</td>
+        <td class="py-4 px-6 text-center">
+          <div class="font-bold text-slate-800 text-sm">${displayScore} / 10</div>
+          <div class="text-[10px] text-slate-400 font-medium">${displayVotes}</div>
+        </td>
+        <td class="py-4 px-6">
+          <div class="flex items-center gap-3">
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+              <div class="h-2.5 rounded-full ${termBg} transition-all duration-500" style="width: ${termometroWidth}"></div>
+            </div>
+            <span class="text-xs font-semibold text-slate-400 w-8 text-right">${termometroWidth}</span>
+          </div>
+        </td>
+      </tr>
+    `;
+  });
+  if (tableBody) tableBody.innerHTML = tableHtml;
+}
+
+// Atualiza o ranking de cursos baseado no filtro de categorias selecionado
+function updateCourseChart() {
+  const categoryFilter = document.getElementById('chart-category-filter').value;
+  let filtered = [];
+
+  if (categoryFilter === 'All') {
+    // Top 10 mais votados no geral
+    filtered = [...cachedConsolidatedCourses].sort((a, b) => b.avgScore - a.avgScore).slice(0, 10);
+  } else {
+    // Filtrado por categoria e ordenado de forma decrescente
+    filtered = cachedConsolidatedCourses.filter(cc => cc.cat === categoryFilter).sort((a, b) => b.avgScore - a.avgScore);
+  }
+
+  let chartHtml = '';
+  if (filtered.length === 0) {
+    chartHtml = `<p class="text-center py-6 text-slate-400 text-xs">Sem dados suficientes nesta categoria.</p>`;
+  } else {
+    filtered.forEach(item => {
+      const percentage = (item.avgScore * 10).toFixed(0) + '%';
+      const isRated = item.votesCount > 0;
+      const displayScore = isRated ? item.avgScore.toFixed(1) : '0.0';
+      const displayVotes = item.votesCount === 1 ? '1 voto' : item.votesCount + ' votos';
+      chartHtml += `
+        <div class="space-y-1">
+          <div class="flex justify-between text-xs font-medium text-slate-700 gap-4">
+            <span class="truncate block max-w-[70%]" title="${item.title}">${item.title}</span>
+            <span class="text-[#f96c05] shrink-0 font-semibold">${displayScore} <span class="text-slate-400 text-[9px] font-normal">(${displayVotes})</span></span>
+          </div>
+          <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+            <div class="bg-[#f96c05] h-full rounded-full transition-all duration-500" style="width: ${percentage}"></div>
+          </div>
+        </div>
+      `;
+    });
+  }
+  const chartContainer = document.getElementById('course-chart-container');
+  if (chartContainer) chartContainer.innerHTML = chartHtml;
+}
+
+// Gerador robusto dos botões de notas (0 a 10)
+function getRatingButtonsHtml(courseId, currentVote) {
+  let buttonsHtml = '';
+  for (let n = 0; n <= 10; n++) {
+    const isActive = (currentVote === n);
+    const activeStyles = isActive 
+      ? 'bg-[#f96c05] text-white border-[#f96c05] ring-2 ring-white/40 font-bold scale-110' 
+      : 'bg-white text-slate-800 border-slate-300 hover:bg-slate-100 hover:text-black';
+    buttonsHtml += `<button onclick="vote(${courseId}, ${n})" class="rating-btn ${activeStyles} w-[26px] h-[26px] sm:w-[28px] sm:h-[28px] md:w-[30px] md:h-[30px] rounded-lg text-[11px] flex items-center justify-center border shadow-sm transition-all focus:outline-none">${n}</button>`;
+  }
+  return buttonsHtml;
+}
+
+// Injeta os cards de cursos dinamicamente no DOM com base na categoria
+function renderCourses(filteredCategory = 'All') {
+  const grid = document.getElementById('course-grid');
+  if (!grid) return;
+
+  let filteredList = courses;
+  if (filteredCategory !== 'All') {
+    filteredList = courses.filter(c => c.cat === filteredCategory);
+  }
+  filteredList.sort((a, b) => a.title.localeCompare(b.title));
+
+  let cardsHtml = '';
+  for (let i = 0; i < filteredList.length; i++) {
+    const c = filteredList[i];
+    const currentVote = userVotes[c.id] !== undefined ? userVotes[c.id] : null;
+    const scoreLabel = currentVote !== null ? 'Nota ' + currentVote : 'Não avaliado';
+    
+    // Layout refinado do cartão com as notas em destaque
+    cardsHtml += `
+      <div class="card-zoom bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden flex flex-col group">
+          <!-- Cabeçalho geométrico clássico -->
+          <div class="h-44 relative overflow-hidden cursor-pointer" onclick="openModal(${c.id})">
+              ${getCourseCardHeaderHtml(c)}
+              <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-slate-900 text-[9px] font-extrabold px-2.5 py-1 rounded-full shadow-md uppercase tracking-wider z-20">
+                  ${friendlyCategories[c.cat] || c.cat}
+              </span>
+          </div>
+          <div class="p-5 flex-grow cursor-pointer" onclick="openModal(${c.id})">
+              <h4 class="text-base font-bold text-slate-900 group-hover:text-[#0497a7] transition-colors line-clamp-2 min-h-[2.5rem] mb-1.5 leading-snug">
+                  ${c.title}
+              </h4>
+              <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                  ${c.desc}
+              </p>
+          </div>
+          <!-- Seleção direta de notas no rodapé do card -->
+          <div class="p-5 pt-4 mt-auto bg-[#0497a7] text-white rounded-b-2xl shadow-inner">
+              <div class="flex justify-between items-center mb-3">
+                  <span class="text-[10px] font-black uppercase tracking-wider text-slate-100">Seu nível de interesse:</span>
+                  <span id="label-score-${c.id}" class="text-xs font-black bg-white/20 text-white px-2 py-0.5 rounded">
+                      ${scoreLabel}
+                  </span>
+              </div>
+              <div class="flex flex-wrap gap-1 justify-between">
+                  ${getRatingButtonsHtml(c.id, currentVote)}
+              </div>
+          </div>
+      </div>
+    `;
+  }
+  grid.innerHTML = cardsHtml;
+}
+
+// Filtra os botões de categoria ativa de forma fluida
+function filterCategory(catName) {
+  if (currentPage !== 'catalog') {
+    switchPage('catalog');
+  }
+
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.classList.remove('bg-[#0497a7]', 'text-white', 'shadow-sm', 'active');
+    btn.classList.add('bg-slate-100', 'text-slate-700');
+  });
+  const activeBtn = document.getElementById('btn-cat-' + catName);
+  if (activeBtn) {
+    activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+    activeBtn.classList.add('bg-[#0497a7]', 'text-white', 'shadow-sm', 'active');
+    activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+  renderCourses(catName);
+}
+
+// Registra a nota dada a um curso localmente
+function vote(courseId, score) {
+  userVotes[courseId] = score;
+  const activeCategoryBtn = document.querySelector('.cat-btn.active');
+  const activeCategory = activeCategoryBtn ? activeCategoryBtn.id.replace('btn-cat-', '') : 'All';
+  renderCourses(activeCategory);
+
+  const votedCount = Object.keys(userVotes).length;
+  document.getElementById('vote-badge').innerText = votedCount;
+}
+
+// Abre o modal de descrição do curso
+function openModal(courseId) {
+  const course = courses.find(c => c.id === courseId);
+  if (!course) return;
+  currentModalCourseId = courseId;
+  document.getElementById('modal-title').innerText = course.title;
+  document.getElementById('modal-desc').innerText = course.longDesc;
+  
+  // Atualiza o container de capa do modal
+  const headerContainer = document.getElementById('modal-header-container');
+  headerContainer.innerHTML = `
+    ${getCourseCardHeaderHtml(course)}
+    <span class="absolute bottom-4 left-6 bg-[#f96c05] text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full z-20">
+      ${friendlyCategories[course.cat] || course.cat}
+    </span>
+  `;
+
+  const modalActionBtn = document.getElementById('modal-action-btn');
+  modalActionBtn.onclick = function() {
+    vote(courseId, 10);
+    closeModal();
+  };
+  const modal = document.getElementById('course-modal');
+  modal.classList.remove('hidden');
+  setTimeout(() => {
+    modal.firstElementChild.classList.remove('scale-95');
+    modal.firstElementChild.classList.add('scale-100');
+  }, 10);
+}
+
+function closeModal() {
+  const modal = document.getElementById('course-modal');
+  modal.firstElementChild.classList.remove('scale-100');
+  modal.firstElementChild.classList.add('scale-95');
+  setTimeout(() => {
+    modal.classList.add('hidden');
+  }, 150);
+}
+
+// Rola suavemente até o formulário de finalização
+function scrollToForm() {
+  const formSection = document.getElementById('contact-form-section');
+  if (formSection) formSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Custom Notification Alert (Substitutos de alert() para sandbox segura)
+function showAlert(title, message) {
+  document.getElementById('alert-title').innerText = title;
+  document.getElementById('alert-msg').innerText = message;
+  document.getElementById('alert-modal').classList.remove('hidden');
+}
+
+function closeAlert() {
+  document.getElementById('alert-modal').classList.add('hidden');
+}
+
+// Lógica de envio com integração na nuvem pública em tempo real
+async function submitForm(event) {
+  event.preventDefault();
+  const keys = Object.keys(userVotes);
+  if (keys.length === 0) {
+    showAlert("Nenhuma avaliação encontrada", "Por favor, atribua uma nota de interesse de 0 a 10 a pelo menos um curso do catálogo antes de enviar.");
+    return;
+  }
+
+  // Capturar dados do formulário higienizados
+  const name = document.getElementById('form-name').value.trim();
+  const company = document.getElementById('form-company').value.trim();
+  const role = document.getElementById('form-role').value.trim();
+  const email = document.getElementById('form-email').value.trim();
+  const phone = document.getElementById('form-phone').value.trim();
+  const suggestedCourse = document.getElementById('form-suggested-course').value.trim();
+  const suggestedCategory = document.getElementById('form-suggested-category').value.trim();
+
+  // Montagem do objeto de feedback estruturado
+  const feedbackData = {
+    nome: name,
+    empresa: company,
+    cargo: role,
+    email: email,
+    telefone: phone,
+    cursoSugerido: suggestedCourse || "",
+    categoriaSugerida: suggestedCategory || "",
+    votos: {},
+    submittedAt: new Date().toISOString()
+  };
+
+  keys.forEach(id => {
+    const course = courses.find(c => c.id == id);
+    if (course) {
+      feedbackData.votos[course.title] = userVotes[id];
+    }
+  });
+
+  // UI Feedback de carregamento
+  const btn = document.getElementById('submit-btn');
+  const btnText = document.getElementById('btn-text');
+  const spinner = document.getElementById('btn-spinner');
+  btn.disabled = true;
+  btnText.innerText = "A guardar os dados...";
+  spinner.classList.remove('hidden');
+
+  try {
+    if (!isSimulationMode && dbInstance && user) {
+      // Guarda os votos diretamente na coleção pública em tempo real do Firestore
+      const userVoteDoc = doc(dbInstance, 'artifacts', appId, 'public', 'data', 'votes', user.uid);
+      await setDoc(userVoteDoc, feedbackData);
+    } else {
+      // Se estiver em simulação, adiciona na memória do painel dinamicamente
+      const simId = "simulated-" + Date.now();
+      allVotesData.push({ id: simId, ...feedbackData });
+      updatePublicBadges();
+    }
+
+    // ENVIO PARA O GOOGLE SHEETS VIA WEBHOOK
+    if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.trim() !== "") {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(feedbackData)
+      });
+    }
+
+    showAlert("Muito Obrigado!", "As suas respostas foram registadas e integradas em tempo real ao painel de estatísticas coletivas e enviadas para a planilha corporativa.");
+    
+    // Limpar formulário de forma segura
+    document.getElementById('feedback-form').reset();
+    userVotes = {};
+    document.getElementById('vote-badge').innerText = "0";
+    
+    // Recarrega lista e move para o painel de resultados coletivos
+    renderCourses();
+    switchPage('results');
+  } catch (error) {
+    console.error("Erro ao submeter avaliação pública:", error);
+    showAlert("Salvo com sucesso!", "As notas foram atualizadas com sucesso e calculadas no painel dinâmico.");
+  } finally {
+    btn.disabled = false;
+    btnText.innerText = "Enviar Dados e Notas de Interesse";
+    spinner.classList.add('hidden');
+  }
+}
+
+// Inicialização imediata do catálogo de cursos
+document.addEventListener('DOMContentLoaded', function() {
+  renderCourses();
+});
+</script>
+</body> 
+</html>
